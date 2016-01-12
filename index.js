@@ -45,7 +45,7 @@ Api.prototype.getLatestToken = function(callback) {
     self.getLatestTicket(function(err, ticket) {
       if (err) {
         return callback(err);
-      }else{
+      } else {
         callback
       }
     });
@@ -62,12 +62,12 @@ Api.prototype.getLatestToken = function(callback) {
 }
 
 Api.prototype.get_access_token = function(callback) {
-  this.getLatestTicket(function(err, ticket){
+  this.getLatestTicket(function(err, ticket) {
     agent.post(base_url + '/get_suite_token')
       .send({
         suite_key: this.suite_key,
         suite_secret: this.suite_secret,
-        suite_ticket : this.suite_ticket
+        suite_ticket: this.suite_ticket
       }).end(callback);
   });
 };

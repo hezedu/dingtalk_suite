@@ -16,7 +16,7 @@
     "url": "https://github.com/hezedu/dingtalk_suite.git"
   },
   "dependencies": {
-
+    "superagent": "1.6.1"
   },
   "licenses": "MIT",
   "email": "hezedu@hotmail.com",

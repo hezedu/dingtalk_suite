@@ -13,7 +13,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/hezedu/dingtalk_suite.git"
+    "url": "git+https://github.com/hezedu/dingtalk_suite.git"
   },
   "dependencies": {
     "superagent": "1.6.1"
@@ -23,5 +23,13 @@
   "description": "钉钉套件主动调用api",
   "bugs": {
     "url": "https://github.com/hezedu/dingtalk_suite/issues"
-  }
+  },
+  "readme": "# dingtalk_suite\r\n钉钉套件主动调用api\r\n",
+  "readmeFilename": "README.md",
+  "gitHead": "02aac5d0f4a1736547ce6ba5c2040e66acd0e745",
+  "homepage": "https://github.com/hezedu/dingtalk_suite#readme",
+  "_id": "dingtalk_suite@0.1.2",
+  "scripts": {},
+  "_shasum": "18f1d99e51889ff8b4023c6185322485c0397bcf",
+  "_from": "dingtalk_suite@*"
 }

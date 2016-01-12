@@ -1,69 +1,107 @@
 var agent = require('superagent');
-var base_url = 'https://oapi.dingtalk.com/service';
-var ticket_expires_in = 1000 * 60 * 20 //20分钟
-var token_expires_in = 1000 * 60 * 60 * 2 - 10000 //1小时59分50秒.防止网络延迟
+var util = require('./util');
+
+var BASE_URL = 'https://oapi.dingtalk.com/service';
+var TICKET_EXPIRES = 1000 * 60 * 20 //20分钟
+var TOKEN_EXPIRES = 1000 * 60 * 60 * 2 - 10000 //1小时59分50秒.防止网络延迟
 
 
 
 var Api = function(conf, getTicket, getToken, saveToken) {
   this.suite_key = conf.suiteid;
-  this.suite_secret = conf.encodingAESKey;
-  this.ticket_expires_in = conf.ticket_expires_in || ticket_expires_in;
-  this.token_expires_in = conf.token_expires_in || token_expires_in;
+  this.suite_secret = conf.secret;
+  this.ticket_expires = conf.ticket_expires || TICKET_EXPIRES;
+  this.token_expires = conf.token_expires || TOKEN_EXPIRES;
 
   this.getTicket = getTicket;
   this.getToken = getToken;
   this.saveToken = saveToken;
+
   this.ticket_cache = {
-    expires_in: 0,
+    expires: 0,
     value: null
   };
-  this.token_cache = {
-    expires_in: 0,
-    value: null
-  };
+  this.token_cache = null;
+
 }
 
 Api.prototype.getLatestTicket = function(callback) {
   var now = Date.now();
-  if (this.ticket_cache.expires_in + this.ticket_expires_in <= now) {
+  if (this.ticket_cache.expires + this.ticket_expires <= now) {
     this.getTicket(callback);
   } else {
     callback(null, this.ticket_cache);
   }
 }
 
+Api.prototype._get_access_token = function(callback) {
+  var self = this;
+  this.getLatestTicket(function(err, ticket) {
+
+    var data = {
+      suite_key: self.suite_key,
+      suite_secret: self.suite_secret,
+      suite_ticket: ticket.value
+    };
+
+    agent.post(BASE_URL + '/get_suite_token')
+      .send(data).end(util.wrapper(callback));
+  });
+};
+
 Api.prototype.getLatestToken = function(callback) {
   var self = this;
-  var now = Date.now();
-  if (this.token_cache.expires_in + this.token_expires_in <= now) {
 
-    self.getLatestTicket(function(err, ticket) {
+  console.log(self.token_cache);
+
+  if (!self.token_cache) {
+    self.getToken(function(err, token) {
       if (err) {
         return callback(err);
       } else {
-        callback
+        self.token_cache = token;
+        self.getLatestToken(callback);
       }
     });
   } else {
-    callback(null, this.token_cache);
+    var now = Date.now();
+    if (self.token_cache.expires + self.token_expires <= now) {
+      self._get_access_token(function(err, token) {
+        if (err) {
+          return callback(err);
+        } else {
+          token = {
+            value: token.suite_access_token,
+            expires: now + self.token_expires
+          }
+          self.saveToken(token, function(err) {
+            if (err) {
+              return callback(err);
+            }
+            self.token_cache = token;
+            callback(null, token);
+          });
+        }
+      });
+    } else {
+      callback(null, this.token_cache);
+    }
   }
-
-
-
-  agent.post(base_url + '/get_suite_token')
-    .send({
-      suite_key: this.suite_key
-    })
 }
 
-Api.prototype.get_access_token = function(callback) {
-  this.getLatestTicket(function(err, ticket) {
-    agent.post(base_url + '/get_suite_token')
-      .send({
-        suite_key: this.suite_key,
-        suite_secret: this.suite_secret,
-        suite_ticket: this.suite_ticket
-      }).end(callback);
+Api.prototype.get_permanent_code = function(tmp_auth_code, callback) {
+  var self = this;
+  self.getLatestToken(function(err, token){
+
+    if(err){
+      return callback(err);
+    }
+    agent.post(BASE_URL + '/get_permanent_code')
+      .query({suite_access_token:token.value})
+      .send({tmp_auth_code : tmp_auth_code})
+      .end(callback);
   });
-};
+
+}
+
+module.exports = Api;

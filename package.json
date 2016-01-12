@@ -16,11 +16,11 @@
     "url": "https://github.com/hezedu/dingtalk_suite.git"
   },
   "dependencies": {
-    "wechat-crypto": "0.0.2"
+
   },
   "licenses": "MIT",
   "email": "hezedu@hotmail.com",
-  "description": "nodejs版钉钉ISV套件回调server",
+  "description": "钉钉套件主动调用api",
   "bugs": {
     "url": "https://github.com/hezedu/dingtalk_suite/issues"
   }

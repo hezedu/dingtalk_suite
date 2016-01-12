@@ -3,11 +3,7 @@ var base_url = 'https://oapi.dingtalk.com/service';
 var ticket_expires_in = 1000 * 60 * 20 //20分钟
 var token_expires_in = 1000 * 60 * 60 * 2 - 10000 //1小时59分50秒.防止网络延迟
 
-var config = {
-  token: 'saffqwsfsfasfsfasf',
-  encodingAESKey: 'er7dufdhn1vw5rm2n30vxkrz11ppt4zciz52t5dj86z',
-  suiteid: 'suitexpiygdnz51hsbbhj'
-}
+
 
 var Api = function(conf, getTicket, getToken, saveToken) {
   this.suite_key = conf.suiteid;

@@ -1,0 +1,27 @@
+{
+  "name": "dingtalk_suite",
+  "version": "0.0.1",
+  "main": "index",
+  "keywords": [
+    "dingtalk",
+    "suite",
+    "ISV",
+    "nodejs"
+  ],
+  "author": {
+    "name": "hezedu"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/hezedu/dingtalk_suite.git"
+  },
+  "dependencies": {
+    "wechat-crypto": "0.0.2"
+  },
+  "licenses": "MIT",
+  "email": "hezedu@hotmail.com",
+  "description": "nodejs版钉钉ISV套件回调server",
+  "bugs": {
+    "url": "https://github.com/hezedu/dingtalk_suite/issues"
+  }
+}

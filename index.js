@@ -2,16 +2,16 @@ var agent = require('superagent');
 var util = require('./util');
 
 var BASE_URL = 'https://oapi.dingtalk.com/service';
-var TICKET_EXPIRES = 1000 * 60 * 20 //20分钟
-var TOKEN_EXPIRES = 1000 * 60 * 60 * 2 - 10000 //1小时59分50秒.防止网络延迟
+var TICKET_EXPIRES_IN = 1000 * 60 * 20 //20分钟
+var TOKEN_EXPIRES_IN = 1000 * 60 * 60 * 2 - 10000 //1小时59分50秒.防止网络延迟
 
 
 
 var Api = function(conf, getTicket, getToken, saveToken) {
   this.suite_key = conf.suiteid;
   this.suite_secret = conf.secret;
-  this.ticket_expires = conf.ticket_expires || TICKET_EXPIRES;
-  this.token_expires = conf.token_expires || TOKEN_EXPIRES;
+  this.ticket_expires_in = TICKET_EXPIRES_IN;
+  this.token_expires_in = conf.token_expires_in || TOKEN_EXPIRES_IN;
 
   this.getTicket = getTicket;
   this.getToken = getToken;
@@ -27,7 +27,7 @@ var Api = function(conf, getTicket, getToken, saveToken) {
 
 Api.prototype.getLatestTicket = function(callback) {
   var now = Date.now();
-  if (this.ticket_cache.expires + this.ticket_expires <= now) {
+  if (this.ticket_cache.expires + this.ticket_expires_in <= now) {
     this.getTicket(callback);
   } else {
     callback(null, this.ticket_cache);
@@ -65,14 +65,14 @@ Api.prototype.getLatestToken = function(callback) {
     });
   } else {
     var now = Date.now();
-    if (self.token_cache.expires + self.token_expires <= now) {
+    if (self.token_cache.expires + self.token_expires_in <= now) {
       self._get_access_token(function(err, token) {
         if (err) {
           return callback(err);
         } else {
           token = {
             value: token.suite_access_token,
-            expires: now + self.token_expires
+            expires: now + self.token_expires_in
           }
           self.saveToken(token, function(err) {
             if (err) {
@@ -89,17 +89,18 @@ Api.prototype.getLatestToken = function(callback) {
   }
 }
 
-Api.prototype.get_permanent_code = function(tmp_auth_code, callback) {
+Api.prototype.getPermanentCode = function(tmp_auth_code, callback) {
   var self = this;
   self.getLatestToken(function(err, token){
 
     if(err){
       return callback(err);
-    }
+    };
+
     agent.post(BASE_URL + '/get_permanent_code')
       .query({suite_access_token:token.value})
       .send({tmp_auth_code : tmp_auth_code})
-      .end(callback);
+      .end(util.wrapper(callback));
   });
 
 }

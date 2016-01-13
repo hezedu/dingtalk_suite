@@ -7,15 +7,15 @@ var TOKEN_EXPIRES_IN = 1000 * 60 * 60 * 2 - 10000 //1小时59分50秒.防止网�
 
 
 
-var Api = function(conf, getTicket, getToken, saveToken) {
+var Api = function(conf) {
   this.suite_key = conf.suiteid;
   this.suite_secret = conf.secret;
   this.ticket_expires_in = TICKET_EXPIRES_IN;
   this.token_expires_in = conf.token_expires_in || TOKEN_EXPIRES_IN;
 
-  this.getTicket = getTicket;
-  this.getToken = getToken;
-  this.saveToken = saveToken;
+  this.getTicket = conf.getTicket;
+  this.getToken = conf.getToken;
+  this.saveToken = conf.saveToken;
 
   this.ticket_cache = {
     expires: 0,

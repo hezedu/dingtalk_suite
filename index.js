@@ -27,7 +27,7 @@ var Api = function(conf) {
 
 Api.prototype.getLatestTicket = function(callback) {
   var now = Date.now();
-  if (this.ticket_cache.expires + this.ticket_expires_in <= now) {
+  if (this.ticket_cache.expires  <= now) {
     this.getTicket(callback);
   } else {
     callback(null, this.ticket_cache);
@@ -65,7 +65,7 @@ Api.prototype.getLatestToken = function(callback) {
     });
   } else {
     var now = Date.now();
-    if (self.token_cache.expires + self.token_expires_in <= now) {
+    if (self.token_cache.expires  <= now) {
       self._get_access_token(function(err, token) {
         if (err) {
           return callback(err);

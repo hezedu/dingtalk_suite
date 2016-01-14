@@ -30,8 +30,8 @@ var api = new dd_talk(conf);
 ___注___:本项目自带cache, token的过期时间默认为1小时59分50秒(防止网络延迟，故比规定2小时少了10秒)。
 可以在`conf.token_expires_in`更改（不可大于2小时）。
 ##方法
-获取企业号永久授权码：
-
+1.获取企业号永久授权码：
+tmp_auth_code由 dingtalk_suite_callback 处获得。
 `api.getPermanentCode(tmp_auth_code, callback)` 
 
 

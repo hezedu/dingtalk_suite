@@ -1,7 +1,7 @@
 # dingtalk suite(正在开发)
 钉钉套件主动调用api, 自带缓存。
 
-回调server API见[dingtalk_suite_callback](https://github.com/hezedu/dingtalk_suite_callback)
+回调server API见:[dingtalk_suite_callback](https://github.com/hezedu/dingtalk_suite_callback)
 ##安装 
 `npm install dingtalk_suite`
 ##示例
@@ -13,6 +13,7 @@ var conf = {
     secret: 'C1oXyeJUgH_QXEHYJS4-Um-zxfv_yGSpTs3Yq6un6UV_zAlEpt-6np3fXskv5dGs',
     getTicket: function(callback){ 
       //从数据库中取出Tikcet，返回的data样式为：{value: 'xxxxxxx', expires:1452735301543}
+      //ticket从 dingtalk_suite_callback 处获得
       callback(null, data);
     },
     getToken: function(callback){

@@ -46,7 +46,7 @@ api.getAuthInfo(auth_corpid, permanent_code, callback)
 ```
 ### 获取企业号应用
 ```js
-api.getAuthInfo(agentid, auth_corpid, permanent_code, callback)
+api.getAgent(agentid, auth_corpid, permanent_code, callback)
 ```
 ### 激活授权套件
 ```js

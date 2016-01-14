@@ -105,4 +105,75 @@ Api.prototype.getPermanentCode = function(tmp_auth_code, callback) {
 
 }
 
+Api.prototype.getCorpToken = function(auth_corpid, permanent_code, callback) {
+  var self = this;
+  self.getLatestToken(function(err, token){
+
+    if(err){
+      return callback(err);
+    };
+
+    agent.post(BASE_URL + '/get_corp_token')
+      .query({suite_access_token:token.value})
+      .send({auth_corpid : auth_corpid, permanent_code: permanent_code})
+      .end(util.wrapper(callback));
+  });
+}
+
+Api.prototype.getAuthInfo = function(auth_corpid, permanent_code, callback) {
+  var self = this;
+  self.getLatestToken(function(err, token){
+
+    if(err){
+      return callback(err);
+    };
+    agent.post(BASE_URL + '/get_auth_info')
+      .query({suite_access_token:token.value})
+      .send({suite_key: self.suite_key, auth_corpid : auth_corpid, permanent_code: permanent_code})
+      .end(util.wrapper(callback));
+  });
+}
+
+Api.prototype.getAgent = function(agentid, auth_corpid, permanent_code, callback) {
+  var self = this;
+  self.getLatestToken(function(err, token){
+
+    if(err){
+      return callback(err);
+    };
+    agent.post(BASE_URL + '/get_agent')
+      .query({suite_access_token:token.value})
+      .send({suite_key: self.suite_key, auth_corpid : auth_corpid, permanent_code: permanent_code, agentid: agentid})
+      .end(util.wrapper(callback));
+  });
+}
+
+Api.prototype.activateSuite = function(auth_corpid, permanent_code, callback) {
+  var self = this;
+  self.getLatestToken(function(err, token){
+
+    if(err){
+      return callback(err);
+    };
+    agent.post(BASE_URL + '/activate_suite')
+      .query({suite_access_token:token.value})
+      .send({suite_key: self.suite_key, auth_corpid : auth_corpid, permanent_code: permanent_code})
+      .end(util.wrapper(callback));
+  });
+}
+
+Api.prototype.setCorpIpwhitelist = function(auth_corpid, ip_whitelist, callback) {
+  var self = this;
+  self.getLatestToken(function(err, token){
+
+    if(err){
+      return callback(err);
+    };
+    agent.post(BASE_URL + '/set_corp_ipwhitelist')
+      .query({suite_access_token:token.value})
+      .send({suite_key: self.suite_key, auth_corpid : auth_corpid, ip_whitelist: permanent_code})
+      .end(util.wrapper(callback));
+  });
+}
+
 module.exports = Api;

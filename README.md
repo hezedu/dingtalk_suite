@@ -1,4 +1,4 @@
-# dingtalk_suite(未完成)
+# dingtalk_suite(正在开发)
 钉钉套件主动调用api, 自带缓存。
 ##安装 
 `npm install dingtalk_suite`

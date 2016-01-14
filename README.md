@@ -27,6 +27,8 @@ var conf = {
   }
 var api = new dd_talk(conf);
 ```
+___注___:本项目自带cache, 所有`data`直接存储就得。token的过期时间默认为1小时59分50秒(防止网络延迟，故比规定2小时少了10秒)。
+可以在`conf.token_expires_in`更改（不可大于2小时）。
 ##方法
 获取企业号永久授权码：
 

@@ -52,8 +52,6 @@ Api.prototype._get_access_token = function(callback) {
 Api.prototype.getLatestToken = function(callback) {
   var self = this;
 
-  console.log(self.token_cache);
-
   if (!self.token_cache) {
     self.getToken(function(err, token) {
       if (err) {

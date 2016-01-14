@@ -1,5 +1,7 @@
 # dingtalk suite(正在开发)
 钉钉套件主动调用api, 自带缓存。
+
+回调server API见[dingtalk_suite_callback](https://github.com/hezedu/dingtalk_suite_callback)
 ##安装 
 `npm install dingtalk_suite`
 ##示例

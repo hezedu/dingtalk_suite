@@ -14,7 +14,7 @@ var conf = {
     getTicket: function(callback){ 
       //从数据库中取出Tikcet，返回的data样式为：{value: 'xxxxxxx', expires:1452735301543}
       //ticket从 dingtalk_suite_callback 处获得
-      fs.readFile('ticket.txt',function(err, data){
+      fs.readFile(this.suiteid + 'ticket.txt',function(err, data){
         if(err){
             return callback(err);
         }
@@ -25,7 +25,7 @@ var conf = {
     
     getToken: function(callback){
       //从数据库中取出Token，返回的data样式为：{value: 'xxxxxxx', expires:1452735301543}
-      fs.readFile('token.txt',function(err, data){
+      fs.readFile(this.suiteid + 'token.txt',function(err, data){
         if(err){
             return callback(err);
         }
@@ -36,7 +36,7 @@ var conf = {
     
     saveToken: function(data, callback){
       //存储Token到数据库中，data样式为：{value: 'xxxxxxx', expires:1452735301543//过期时间}
-      fs.writeFile('token.txt',JSON.stringify(data), callback);
+      fs.writeFile(this.suiteid + 'token.txt',JSON.stringify(data), callback);
     }
   }
 var api = new dd_talk(conf);

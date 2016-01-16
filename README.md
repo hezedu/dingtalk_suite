@@ -44,29 +44,29 @@ var api = new dd_talk(conf);
 ___注___:本项目自带cache, token的过期时间默认为1小时59分50秒(防止网络延迟，故比规定2小时少了10秒)。
 可以在`conf.token_expires_in`更改（不可大于2小时）。
 ##方法
-### 获取企业号永久授权码
+#### 获取企业号永久授权码
 ```js
 api.getPermanentCode(tmp_auth_code, callback)
 //tmp_auth_code字符串，由 dingtalk_suite_callback 处获得。
 ```
-### 获取企业号Token
+#### 获取企业号Token
 ```js
 //auth_corpid和permanent_code由上面接口获得。
 api.getCorpToken(auth_corpid, permanent_code, callback)
 ```
-### 获取企业号信息
+#### 获取企业号信息
 ```js
 api.getAuthInfo(auth_corpid, permanent_code, callback)
 ```
-### 获取企业号应用
+#### 获取企业号应用
 ```js
 api.getAgent(agentid, auth_corpid, permanent_code, callback)
 ```
-### 激活授权套件
+#### 激活授权套件
 ```js
 api.activateSuite(auth_corpid, permanent_code, callback)
 ```
-### ISV为授权方的企业单独设置IP白名单
+#### ISV为授权方的企业单独设置IP白名单
 ```js
 //ip_whitelist为数组格式：["1.2.3.4","5.6.*.*"]
 api.setCorpIpwhitelist(auth_corpid, ip_whitelist, callback)

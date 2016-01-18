@@ -2,6 +2,7 @@
 钉钉套件主动调用**API**, 自带**cache**。
 
 回调server API见:[dingtalk_suite_callback](https://github.com/hezedu/dingtalk_suite_callback)
+控制企业号 API见:[dingtalk_enterprise](https://github.com/hezedu/dingtalk_enterprise)
 ##安装 
 `npm install dingtalk_suite`
 ##示例

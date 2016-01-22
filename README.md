@@ -11,8 +11,10 @@
 ```js
 var dd_talk = require('dingtalk_suite');
 var conf = {
-    suiteid: 'suitexpiygdnz51hsbbhj',
-    secret: 'C1oXyeJUgH_QXEHYJS4-Um-zxfv_yGSpTs3Yq6un6UV_zAlEpt-6np3fXskv5dGs',
+    suiteid: 'suitexpiygdnxxxxx',
+    secret: 'C1oXyeJUgH_QXEHYJS4-Um-zxfxxxxxxxxxxxxxxxxxx-6np3fXskv5dGs',
+    corpid: 'dingxxxxxxxxxxxxxxx',
+    SSOSecret:'C1oXyeJUgH_QXEHYJS4-Um-zxfxxxxxxxxxxxxxxxxxx-6np3fXskv5dGs',
     getTicket: function(callback){ 
       //从数据库中取出Tikcet，返回的data样式为：{value: 'xxxxxxx', expires:1452735301543}
       //ticket从 dingtalk_suite_callback 处获得
@@ -73,7 +75,11 @@ api.activateSuite(auth_corpid, permanent_code, callback)
 //ip_whitelist为数组格式：["1.2.3.4","5.6.*.*"]
 api.setCorpIpwhitelist(auth_corpid, ip_whitelist, callback)
 ```
-
+### 免登CODE换取微应用管理员信息
+```js
+//ip_whitelist为数组格式：["1.2.3.4","5.6.*.*"]
+api.getSSOUserInfoByCode(code, callback)
+```
 ##钉钉文档
 http://ddtalk.github.io/dingTalkDoc/?spm=a3140.7785475.0.0.p5bAUd#1-isv接口调用整体流程
 

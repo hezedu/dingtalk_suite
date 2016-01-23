@@ -13,8 +13,6 @@ var dd_talk = require('dingtalk_suite');
 var conf = {
     suiteid: 'suitexpiygdnxxxxx',
     secret: 'C1oXyeJUgH_QXEHYJS4-Um-zxfxxxxxxxxxxxxxxxxxx-6np3fXskv5dGs',
-    corpid: 'dingxxxxxxxxxxxxxxx',
-    SSOSecret:'C1oXyeJUgH_QXEHYJS4-Um-zxfxxxxxxxxxxxxxxxxxx-6np3fXskv5dGs',
     getTicket: function(callback){ 
       //从数据库中取出Tikcet，返回的data样式为：{value: 'xxxxxxx', expires:1452735301543}
       //ticket从 dingtalk_suite_callback 处获得
@@ -70,19 +68,13 @@ api.getAgent(agentid, auth_corpid, permanent_code, callback)
 ```js
 api.activateSuite(auth_corpid, permanent_code, callback)
 ```
-### ISV为授权方的企业单独设置IP白名单
+### 为授权方的企业单独设置IP白名单
 ```js
 //ip_whitelist为数组格式：["1.2.3.4","5.6.*.*"]
 api.setCorpIpwhitelist(auth_corpid, ip_whitelist, callback)
 ```
-### 免登CODE换取微应用管理员信息
-```js
-//ip_whitelist为数组格式：["1.2.3.4","5.6.*.*"]
-api.getSSOUserInfoByCode(code, callback)
-```
-##钉钉文档
-http://ddtalk.github.io/dingTalkDoc/?spm=a3140.7785475.0.0.p5bAUd#1-isv接口调用整体流程
 
-
-
-
+##更多钉钉相关
+ISV套件回调server: [dingtalk_suite_callback](https://github.com/hezedu/dingtalk_suite_callback)<br>
+企业号API: [dingtalk_enterprise](https://github.com/hezedu/dingtalk_enterprise)<br>
+ISV和企业号免登API: [dingtalk_sso](https://github.com/hezedu/dingtalk_sso)

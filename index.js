@@ -11,8 +11,6 @@ var TOKEN_EXPIRES_IN = 1000 * 60 * 60 * 2 - 10000 //1小时59分50秒.防止网�
 var Api = function(conf) {
   this.suite_key = conf.suiteid;
   this.suite_secret = conf.secret;
-  this.SSOSecret = conf.SSOSecret;
-  this.corpid = conf.corpid;
   this.ticket_expires_in = TICKET_EXPIRES_IN;
   this.token_expires_in = conf.token_expires_in || TOKEN_EXPIRES_IN;
 
@@ -27,35 +25,6 @@ var Api = function(conf) {
   this.token_cache = null;
 
 }
-
-Api.prototype.getSSOToken = function(callback) {
-  var self = this;
-  console.log('corpid', self.corpid);
-  console.log('corpsecret', self.SSOSecret);
-  agent.get(SSO_BASE_URL + '/sso/gettoken')
-    .query({
-      corpid: self.corpid,
-      corpsecret: self.SSOSecret
-    })
-    .end(util.wrapper(callback));
-};
-
-//登录
-Api.prototype.getSSOUserInfoByCode = function(code, callback) {
-  var self = this;
-  self.getSSOToken(function(err, token) {
-    if (err) {
-      return callback(err);
-    };
-    console.log('SSO token', token);
-    agent.get(SSO_BASE_URL + '/sso/getuserinfo')
-      .query({
-        code: code,
-        access_token: token.access_token
-      })
-      .end(util.wrapper(callback));
-  });
-};
 
 Api.prototype.getLatestTicket = function(callback) {
   var now = Date.now();

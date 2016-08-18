@@ -11,7 +11,7 @@
 ```js
 var dd_talk = require('dingtalk_suite');
 var conf = {
-    suiteid: 'suitexpiygdnxxxxx',//这里suiteid===suiteKdy
+    suiteid: 'suitexpiygdnxxxxx',//这里suiteid===suiteKey
     secret: 'C1oXyeJUgH_QXEHYJS4-Um-zxfxxxxxxxxxxxxxxxxxx-6np3fXskv5dGs',
     getTicket: function(callback){ 
       //从数据库中取出Tikcet，返回的data样式为：{value: 'xxxxxxx', expires:1452735301543}
